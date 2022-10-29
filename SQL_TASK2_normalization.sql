@@ -20,6 +20,13 @@ CREATE TABLE Currency (
 
 CREATE TABLE Product(
 	ProductName nvarchar(255) PRIMARY KEY
+	,Unit nvarchar(15) NOT NULL
+	,UnitPrice money NOT NULL
+	,CurrencyCode nvarchar(3) NOT NULL DEFAULT 'РУБ'
+	,CONSTRAINT FK_Currency_ID
+		FOREIGN KEY (CurrencyCode)
+		REFERENCES Currency(CurrencyCode)
+
 );
 
 -- возможно, один и тот же продукт имеет разные цены
@@ -31,7 +38,6 @@ CREATE TABLE Product(
 CREATE TABLE ProductPrice(
 	ProductPriceID int IDENTITY(1,1) PRIMARY KEY
 	,ProductName nvarchar(255)
-	,Unit nvarchar(15) NOT NULL
 	,UnitPrice money NOT NULL
 	,CurrencyCode nvarchar(3) NOT NULL DEFAULT 'РУБ'
 	,CONSTRAINT FK_PRODUCT_NAME
