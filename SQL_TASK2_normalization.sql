@@ -1,4 +1,4 @@
-﻿USE Demo
+USE Demo
 GO
 
 DROP TABLE IF EXISTS Orders;
@@ -34,6 +34,7 @@ CREATE TABLE ProductPrice(
 	,Unit nvarchar(15) NOT NULL
 	,UnitPrice money NOT NULL
 	,CurrencyCode nvarchar(3) NOT NULL DEFAULT 'РУБ'
+	,PricedDate date NOT NULL DEFAULT GETDATE()
 	,CONSTRAINT FK_PRODUCT_NAME
 		FOREIGN KEY (ProductName)
 		REFERENCES Product(ProductName)
@@ -55,6 +56,7 @@ CREATE TABLE Orders(
 	,Qty int NOT NULL
 	,CustomerFullname nvarchar(255) NOT NULL
 	,ProductPriceID int NOT NULL
+	,OrderedDate date NOT NULL DEFAULT GETDATE()
 	,CONSTRAINT FK_Customer_Fullname
 		FOREIGN KEY (CustomerFullname)
 		REFERENCES Customer(FullName)
@@ -91,6 +93,8 @@ INSERT INTO ProductPrice(ProductName, UnitPrice, Unit) VALUES ('Пила', 450, 
 INSERT INTO ProductPrice(ProductName, UnitPrice, Unit) VALUES ('Доски', 4890, 'м3');
 INSERT INTO ProductPrice(ProductName, UnitPrice, Unit) VALUES ('Брус', 9390, 'м3');
 INSERT INTO ProductPrice(ProductName, UnitPrice, Unit) VALUES ('Парусина', 182, 'м.п.');
+INSERT INTO ProductPrice(ProductName, UnitPrice, Unit) VALUES ('Брус', 9390, 'м3');
+
 
 Set DateFormat MDY 
 
